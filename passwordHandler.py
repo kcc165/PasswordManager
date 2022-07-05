@@ -1,5 +1,6 @@
 import string
 import random
+from cryptography.fernet import Fernet
 
 
 def createPassword():
@@ -18,9 +19,17 @@ def createPassword():
 
     
     password = random.sample(possibleChars, passwordLength)
-    return "".join(password)
+    password = "".join(password)
+    print(password)
+    encryptPassword(password)
     
     
+def encryptPassword(password):
+    key = Fernet.generate_key()
+    fernet = Fernet(key)
+    encPassword = fernet.encrypt(password.encode())
+    print(encPassword)
 
 
-print(createPassword())
+
+
